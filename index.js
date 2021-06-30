@@ -12,27 +12,24 @@
 //    res.send('Hello World!')
 //  })
 
-const express = require('express'); // EXPRESS
-const app = express(); // EXPRESS
+const express = require('express'); // EXPRESS**
+const app = express(); // EXPRESS**
 
-const port = process.env.PORT || 3010
-const { SECRET_KEY } = require('./config')
-const cors = require('cors')
+const port = process.env.PORT || 3011
+
 
 mongoose = require('mongoose');
 
 // ======== DEFINING ROUTES ========//
 
-userRoute = require('./routes/userRoute');
+usersRoute = require('./routes/usersRoute');
 plantsRoute = require('./routes/plantsRoute');
 booksRoute = require('./routes/booksRoute');
 videosRoute = require('./routes/videosRoute')
-courseRoute = require('./routes/courseRoute')
 bodyParser = require('body-parser');
 
 // =================== initial settings ===================
 
-app.use(cors()) // EXPRESS
 app.use(bodyParser.urlencoded({ extended: true })); // EXPRESS
 app.use(bodyParser.json()); // EXPRESS
 
@@ -46,16 +43,15 @@ async function connecting() {
     }
 }
 connecting()
-// temp stuff to suppress internal warning of mongoose which would be updated by them soon
+//temp stuff to suppress internal warning of mongoose which would be updated by them soon
 mongoose.set('useCreateIndex', true);
-// end of connecting to mongo and checking if DB is running
+//end of connecting to mongo and checking if DB is running
 
-// routes
-app.use('/user', userRoute); // EXPRESS
-app.use('/plants', plantsRoute); // EXPRESS
-app.use('/books', booksRoute); // EXPRESS
-app.use('/videos', videosRoute); // EXPRESS
-app.use('/course', courseRoute); // EXPRESS
+//  EXPRESS routes: "use" to reach a js file
+app.use('/users', usersRoute);
+app.use('/plants', plantsRoute);
+app.use('/books', booksRoute);
+app.use('/videos', videosRoute);
 
 // Set the server to listen on port 3010
-app.listen(port, () => console.log(`listening on port `, port))  // EXPRESS
+app.listen(port, () => console.log(`listening on port `, port))  // EXPRESS**

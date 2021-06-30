@@ -8,7 +8,6 @@ const bookSchema = new Schema({
     image: String,
 })
 
-module.exports = mongoose.model('admin', bookSchema);
+module.exports = mongoose.model('books', bookSchema);
 
-//todo admin?
 // image string or file

@@ -8,6 +8,4 @@ const videoSchema = new Schema({
     video: String,
 })
 
-module.exports = mongoose.model('admin', videoSchema);
-
-//todo admin?
+module.exports = mongoose.model('videos', videoSchema);

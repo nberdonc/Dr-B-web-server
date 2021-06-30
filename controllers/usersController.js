@@ -1,15 +1,15 @@
-const userList = require('../models/userModel');
+const usersList = require('../models/usersModel');
 
 const { getToken } = require('../util')
 
 
-class userController {
+class usersController {
 
     /////////////////// TO DISPLAY ALL USERS /////////////////
     async findAll(req, res) {
         console.log("find all")
         try {
-            const allUsers = await userList.find({});
+            const allUsers = await usersList.find({});
             res.send(allUsers);
         }
         catch (e) {
@@ -26,7 +26,7 @@ class userController {
         console.log("email:", email)
         console.log("password:", email)
         try {
-            const found = await userList.findOne({ email: email, password: password });
+            const found = await usersList.findOne({ email: email, password: password });
             if (found) {
                 console.log("token:", found.token)
                 res.send({
@@ -56,17 +56,17 @@ class userController {
         let password = req.body.password
         let isAdmin = req.body.isAdmin
         try {
-            const found = await userList.findOne({ email: email });
-            const count = await userList.count({})
+            const found = await usersList.findOne({ email: email });
+            const count = await usersList.count({})
             if (found) {
                 res.send(false);
             }
             else if (count === 0) {
-                const done = await userList.create({ name: name, lastName: lastName, email: email, password: password, isAdmin: true });
+                const done = await usersList.create({ name: name, lastName: lastName, email: email, password: password, isAdmin: true });
                 res.send(done)
             }
             else {
-                const done = await userList.create({ name: name, lastName: lastName, email: email, password: password, isAdmin: isAdmin });
+                const done = await usersList.create({ name: name, lastName: lastName, email: email, password: password, isAdmin: isAdmin });
                 res.send(done)
             }
         }
@@ -75,14 +75,14 @@ class userController {
         }
     }
 
-    /////////////////// FIND USER /////////////////////
+    /////////////////// FIND user /////////////////////
     async findUser(req, res) {
         console.log("find user")
         let email = req.body.email
         console.log("from back", email)
         console.log("from back", req.body)
         try {
-            const found = await userList.findOne({ email: email });
+            const found = await usersList.findOne({ email: email });
             console.log("from back, found", found)
             if (found) {
                 res.send({
@@ -107,7 +107,7 @@ class userController {
         console.log("delete")
         let id = req.body.id;
         try {
-            const removed = await userList.findByIdAndDelete(id);
+            const removed = await usersList.findByIdAndDelete(id);
             res.send({ removed });
         }
         catch (error) {
@@ -121,7 +121,7 @@ class userController {
         let id = req.body.id
         let isAdmin = req.body.isAdmin
         try {
-            const updated = await userList.findOneAndUpdate(
+            const updated = await usersList.findOneAndUpdate(
                 { _id: id }, { isAdmin: isAdmin }, { new: true }
             );
             res.send({ updated });
@@ -132,4 +132,4 @@ class userController {
     }
 };
 
-module.exports = new userController();
+module.exports = new usersController();

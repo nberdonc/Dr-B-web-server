@@ -12,7 +12,6 @@ const plantSchema = new Schema({
 
 })
 
-module.exports = mongoose.model('admin', plantSchema);
+module.exports = mongoose.model('plants', plantSchema);
 
-//todo admin?
 // image string or file
