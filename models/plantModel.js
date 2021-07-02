@@ -8,7 +8,11 @@ const plantSchema = new Schema({
     onFront: Boolean,
     composition: String,
     image: String,
-    uses: Buffer,
+    uses:
+    {
+        data: Buffer,
+        contentType: String
+    },
 
 })
 

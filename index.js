@@ -40,3 +40,11 @@ app.use('/courses', coursesRoute);
 
 // Set the server to listen on port 3010
 app.listen(port, () => console.log(`listening on port `, port))
+
+//TODO
+//Authorization with JWT
+//Upload IMG with multer middleware
+//Create DB
+//
+//
+//

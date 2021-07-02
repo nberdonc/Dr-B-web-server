@@ -5,7 +5,11 @@ const courseSchema = new Schema({
     genre: String,
     description: String,
     onFront: Boolean,
-    image: Buffer,
+    image:
+    {
+        data: Buffer,
+        contentType: String
+    },
 })
 
 module.exports = mongoose.model('courses', courseSchema);

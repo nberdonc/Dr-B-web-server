@@ -5,7 +5,11 @@ const videoSchema = new Schema({
     genre: String,
     description: String,
     onFront: Boolean,
-    video: Buffer,
+    video:
+    {
+        data: Buffer,
+        contentType: String
+    },
 })
 
 module.exports = mongoose.model('videos', videoSchema);
