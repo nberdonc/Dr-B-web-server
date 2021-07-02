@@ -1,24 +1,7 @@
-//EXPRESS MIDDLEWARE BASICS BETWEEN NODE.JS & CLIENT
-//app.METHOD(PATH, HANDLER)
-
-//Where:
-//app is an instance of express.
-//METHOD is an HTTP request method, in lowercase.
-//PATH/ENDPOINT is a path on the server.
-//HANDLER is the function executed when the route is matched.
-
-//EXAMPLE:
-//app.get('/', function (req, res) {
-//    res.send('Hello World!')
-//  })
-
-const express = require('express'); // EXPRESS**
-const app = express(); // EXPRESS**
-
+const express = require('express');
+const app = express();
 const port = process.env.PORT || 3011
-
-
-mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // ======== DEFINING ROUTES ========//
 
@@ -26,14 +9,15 @@ usersRoute = require('./routes/usersRoute');
 plantsRoute = require('./routes/plantsRoute');
 booksRoute = require('./routes/booksRoute');
 videosRoute = require('./routes/videosRoute')
+coursesRoute = require('./routes/coursesRoute')
 bodyParser = require('body-parser');
 
 // =================== initial settings ===================
 
-app.use(bodyParser.urlencoded({ extended: true })); // EXPRESS
-app.use(bodyParser.json()); // EXPRESS
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// ===== MONGOOSE ===== //
+// ===== MONGOOSE connection to the test database on our locally running instance of MongoDB.===== //
 async function connecting() {
     try {
         await mongoose.connect(`mongodb://127.0.0.1/newdatabase`, { useUnifiedTopology: true, useNewUrlParser: true })
@@ -52,6 +36,7 @@ app.use('/users', usersRoute);
 app.use('/plants', plantsRoute);
 app.use('/books', booksRoute);
 app.use('/videos', videosRoute);
+app.use('/courses', coursesRoute);
 
 // Set the server to listen on port 3010
-app.listen(port, () => console.log(`listening on port `, port))  // EXPRESS**
+app.listen(port, () => console.log(`listening on port `, port))

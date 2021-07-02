@@ -1,13 +1,13 @@
-const bookList = require('../models/bookModel');
+const courseList = require('../models/courseModel');
 
-class booksController {
+class coursesController {
 
-    /////////////////// TO DISPLAY ALL bookS /////////////////
+    /////////////////// TO DISPLAY ALL courseS /////////////////
     async findAll(req, res) {
         console.log("findAll")
         try {
-            const allBooks = await bookList.find({});
-            res.send(allBooks);
+            const allcourses = await courseList.find({});
+            res.send(allcourses);
         }
         catch (e) {
             console.log(e.message)
@@ -15,22 +15,22 @@ class booksController {
         }
     }
 
-    //////////////////// TO FIND ONE book ////////////////////
+    //////////////////// TO FIND ONE course ////////////////////
     async findOne(req, res) {
         console.log("findOne")
         let name = req.body.name;
         console.log(req.body.name)
         try {
-            const oneBook = await bookList.findOne({ name: name });
-            console.log(oneBook)
-            res.send(oneBook);
+            const onecourse = await courseList.findOne({ name: name });
+            console.log(onecourse)
+            res.send(onecourse);
         }
         catch (e) {
             res.send({ error: e.message })
         }
     }
 
-    /////////////////// TO ADD ONE book /////////////////////
+    /////////////////// TO ADD ONE course /////////////////////
     async insert(req, res) {
         console.log("add one")
         let title = req.body.title
@@ -39,12 +39,12 @@ class booksController {
         let image = req.body.image
         let onFront = req.body.onFront
         try {
-            const found = await bookList.findOne({ title: title });
+            const found = await courseList.findOne({ title: title });
             if (found) {
                 res.send(false);
             }
             else {
-                const done = await bookList.create({ title, description, genre, image, onFront });
+                const done = await courseList.create({ title, description, genre, image, onFront });
                 res.send(done)
             }
         }
@@ -53,12 +53,12 @@ class booksController {
         }
     }
 
-    /////////////////////// TO DELETE ONE book //////////////////////
+    /////////////////////// TO DELETE ONE course //////////////////////
     async delete(req, res) {
         console.log("delete")
         let id = req.body.id;
         try {
-            const removed = await bookList.findByIdAndDelete(id);
+            const removed = await courseList.findByIdAndDelete(id);
             res.send({ removed });
         }
         catch (error) {
@@ -66,7 +66,7 @@ class booksController {
         };
     }
 
-    //////////////////// TO UPDATE ONE book /////////////////////////
+    //////////////////// TO UPDATE ONE course /////////////////////////
     async update(req, res) {
         console.log("update")
         let id = req.body.id
@@ -76,7 +76,7 @@ class booksController {
         let newImage = req.body.image
         let newOnFront = req.body.onFront
         try {
-            const updated = await bookList.findOneAndUpdate(
+            const updated = await courseList.findOneAndUpdate(
                 { _id: id }, { title: newTitle, description: newDescription, genre: newGenre, image: newImage, onFront: newOnFront }, { new: true }
             );
             res.send({ updated });
@@ -86,4 +86,4 @@ class booksController {
         };
     }
 };
-module.exports = new booksController();
+module.exports = new coursesController();

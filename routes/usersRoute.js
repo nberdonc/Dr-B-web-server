@@ -10,11 +10,11 @@ router.post('/signin', controller.signIn);
 
 router.post('/register', controller.insert);
 
-router.post('/find', authenticateJWT, controller.findUser);
+router.post('/find', controller.findUser);
 
-router.post('/delete', authenticateJWT, controller.delete);
+router.post('/delete', controller.delete);
 
-router.post('/update', authenticateJWT, controller.update);
+router.post('/update', controller.update);
 
 module.exports = router;
 

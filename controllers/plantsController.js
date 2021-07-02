@@ -4,7 +4,7 @@ class plantsController {
 
     /////////////////// TO DISPLAY ALL PLANTS /////////////////
     async findAll(req, res) {
-        console.log("findAll")
+        console.log("findAll from plants controller")
         try {
             const allPlants = await plantList.find({});
             res.send(allPlants);
@@ -17,9 +17,9 @@ class plantsController {
 
     //////////////////// TO FIND ONE PLANT ////////////////////
     async findOne(req, res) {
-        console.log("findOne")
-        let name = req.params.name;
-        console.log(req.params.name)
+        console.log("findOne from plants controller")
+        let name = req.body.name;
+        console.log(req.body.name)
         try {
             const onePlant = await plantList.findOne({ name: name });
             console.log(onePlant)
@@ -32,7 +32,7 @@ class plantsController {
 
     /////////////////// TO ADD ONE PLANT /////////////////////
     async insert(req, res) {
-        console.log("add one")
+        console.log("add one from plants controller")
         let family = req.body.family
         let name = req.body.name
         let cientificName = req.body.cientificName
@@ -47,8 +47,9 @@ class plantsController {
                 res.send(false);
             }
             else {
-                const done = await plantList.create({ name, family, cientificName, habitat, composition, image, uses, onFront });
-                res.send(done)
+                const added = await plantList.create({ name, family, cientificName, habitat, composition, image, uses, onFront });
+                console.log("plant", added)
+                res.send(added)
             }
         }
         catch (e) {
@@ -58,7 +59,7 @@ class plantsController {
 
     /////////////////////// TO DELETE ONE PLANT //////////////////////
     async delete(req, res) {
-        console.log("delete")
+        console.log("delete from plants controller")
         let id = req.body.id;
         try {
             const removed = await plantList.findByIdAndDelete(id);
@@ -71,7 +72,7 @@ class plantsController {
 
     //////////////////// TO UPDATE ONE PLANT /////////////////////////
     async update(req, res) {
-        console.log("update")
+        console.log("update from plants controller")
         let id = req.body.id
         let newName = req.body.name
         let newFamily = req.body.family

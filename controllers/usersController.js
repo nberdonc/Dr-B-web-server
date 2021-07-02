@@ -7,7 +7,7 @@ class usersController {
 
     /////////////////// TO DISPLAY ALL USERS /////////////////
     async findAll(req, res) {
-        console.log("find all")
+        console.log("find all from users controller")
         try {
             const allUsers = await usersList.find({});
             res.send(allUsers);
@@ -20,15 +20,15 @@ class usersController {
 
     /////////////////// SIGN IN /////////////////////
     async signIn(req, res) {
-        console.log("sign in")
+        console.log("sign in from users controller")
         let email = req.body.email
         let password = req.body.password
-        console.log("email:", email)
-        console.log("password:", email)
+        console.log("email from users controller:", email)
+        console.log("password from users controller:", password)
         try {
             const found = await usersList.findOne({ email: email, password: password });
             if (found) {
-                console.log("token:", found.token)
+                console.log("token from users controller:", found.token)
                 res.send({
                     _id: found.id,
                     name: found.name,
@@ -49,7 +49,7 @@ class usersController {
 
     /////////////////// REGISTER /////////////////////
     async insert(req, res) {
-        console.log("register")
+        console.log("register from users controller")
         let name = req.body.name
         let lastName = req.body.lastName
         let email = req.body.email
@@ -77,13 +77,12 @@ class usersController {
 
     /////////////////// FIND user /////////////////////
     async findUser(req, res) {
-        console.log("find user")
+        console.log("find user from users controller")
         let email = req.body.email
-        console.log("from back", email)
-        console.log("from back", req.body)
+        console.log("email from users controller", email)
         try {
             const found = await usersList.findOne({ email: email });
-            console.log("from back, found", found)
+            console.log("found from users controller", found)
             if (found) {
                 res.send({
                     name: found.name,
@@ -104,7 +103,7 @@ class usersController {
 
     /////////////////////// TO DELETE ONE USER //////////////////////
     async delete(req, res) {
-        console.log("delete")
+        console.log("delete from users controller")
         let id = req.body.id;
         try {
             const removed = await usersList.findByIdAndDelete(id);
@@ -117,12 +116,13 @@ class usersController {
 
     //////////////////// TO UPDATE USER /////////////////////////
     async update(req, res) {
-        console.log("update")
+        console.log("update from users controller")
         let id = req.body.id
+        console.log(id)
         let isAdmin = req.body.isAdmin
         try {
             const updated = await usersList.findOneAndUpdate(
-                { _id: id }, { isAdmin: isAdmin }, { new: true }
+                { _id: id }, { isAdmin: isAdmin }, { new: true }//{ new: true } returns document after update
             );
             res.send({ updated });
         }
