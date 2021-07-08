@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = process.env.PORT || 3011
 const mongoose = require('mongoose');
 
@@ -16,6 +17,7 @@ bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // ===== MONGOOSE connection to the test database on our locally running instance of MongoDB.===== //
 async function connecting() {
@@ -45,6 +47,6 @@ app.listen(port, () => console.log(`listening on port `, port))
 //Authorization with JWT
 //Upload IMG with multer middleware
 //Create DB
-//
+//hide password
 //
 //

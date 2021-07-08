@@ -7,6 +7,7 @@ class plantsController {
         console.log("findAll from plants controller")
         try {
             const allPlants = await plantList.find({});
+            console.log("allPlantsList from Plants Controller", allPlants)
             res.send(allPlants);
         }
         catch (e) {
@@ -17,12 +18,13 @@ class plantsController {
 
     //////////////////// TO FIND ONE PLANT ////////////////////
     async findOne(req, res) {
-        console.log("findOne from plants controller")
-        let name = req.body.name;
-        console.log(req.body.name)
+        console.log("req.body: ", req.query)
+        console.log("finding one from plants controller")
+        let cientificName = req.query.cientificName;
+
         try {
-            const onePlant = await plantList.findOne({ name: name });
-            console.log(onePlant)
+            const onePlant = await plantList.findOne({ cientificName: cientificName });
+            console.log("plant found in DB", onePlant)
             res.send(onePlant);
         }
         catch (e) {
@@ -33,21 +35,21 @@ class plantsController {
     /////////////////// TO ADD ONE PLANT /////////////////////
     async insert(req, res) {
         console.log("add one from plants controller")
-        let family = req.body.family
-        let name = req.body.name
         let cientificName = req.body.cientificName
+        let synonym = req.body.synonym
+        let family = req.body.family
         let habitat = req.body.habitat
         let composition = req.body.composition
         let uses = req.body.uses
         let image = req.body.image
         let onFront = req.body.onFront
         try {
-            const found = await plantList.findOne({ name: name });
+            const found = await plantList.findOne({ synonym: synonym });
             if (found) {
                 res.send(false);
             }
             else {
-                const added = await plantList.create({ name, family, cientificName, habitat, composition, image, uses, onFront });
+                const added = await plantList.create({ cientificName, synonym, family, habitat, composition, image, uses, onFront });
                 console.log("plant", added)
                 res.send(added)
             }
@@ -74,9 +76,9 @@ class plantsController {
     async update(req, res) {
         console.log("update from plants controller")
         let id = req.body.id
-        let newName = req.body.name
-        let newFamily = req.body.family
         let newCientificName = req.body.cientificName
+        let newSynonym = req.body.synonym
+        let newFamily = req.body.family
         let newHabitat = req.body.habitat
         let newComposition = req.body.composition
         let newUses = req.body.uses
@@ -84,7 +86,7 @@ class plantsController {
         let newOnFront = req.body.onFront
         try {
             const updated = await plantList.findOneAndUpdate(
-                { _id: id }, { name: newName, family: newFamily, cientificName: newCientificName, habitat: newHabitat, composition: newComposition, uses: newUses, image: newImage, onFront: newOnFront }, { new: true }
+                { _id: id }, { cientificName: newCientificName, synonym: newSynonym, family: newFamily, habitat: newHabitat, composition: newComposition, uses: newUses, image: newImage, onFront: newOnFront }, { new: true }
             );
             res.send({ updated });
         }

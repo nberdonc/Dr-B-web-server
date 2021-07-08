@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const plantSchema = new Schema({
-    family: String,
-    name: String,
     cientificName: String,
+    synonym: String,
+    family: String,
     habitat: String,
     onFront: Boolean,
     composition: String,
-    image: String,
-    uses:
+    uses: String,
+    image:
     {
         data: Buffer,
         contentType: String
